@@ -3,14 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-// 假设用链表存储别名
-typedef struct Alias
-{
-    char* alias_name; // 别名
-    char* alias_cmd; // 别名对应的原始命令
-    struct Alias* next; // 下一个别名
-} Alias;
-
 // 别名列表
 Alias* alias_list = NULL;
 
@@ -52,6 +44,25 @@ const char* get_alias_command(const char* alias_name)
         current = current->next;
     }
     return NULL;
+}
+
+/**
+ *@brief 打印别名命令
+ *
+ * @param alias_name
+ * @return int
+ */
+int print_alias_command(const char* alias_name)
+{
+    Alias* current = alias_list;
+    while (current != NULL) {
+        if (strcmp(current->alias_name, alias_name) == 0) {
+            printf("%s is aliased to `%s`\n", alias_name, current->alias_cmd);
+            return 1;
+        }
+        current = current->next;
+    }
+    return 0;
 }
 
 // 列出所有别名

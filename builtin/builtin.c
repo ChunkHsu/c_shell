@@ -96,6 +96,7 @@ void exec_cmd(SEQ* seq)
     case CMD_TYPE:
         if (DEBUG) printf("builtin.c Executing type command...\n");
         // 实现type命令
+        exec_builtin_type(seq);
         break;
     default:
         if (DEBUG) printf("builtin.c Unknown command 需要执行外部命令.\n");
