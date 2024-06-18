@@ -4,14 +4,40 @@
 #include "../command.h"  // 修正包含路径
 #include "../eval.h"
 
-// 其他内建命令函数声明
-void builtin_alias(SEQ* seq);
-void builtin_cd(SEQ* seq);
-void builtin_cat(SEQ* seq);
-void builtin_grep(SEQ* seq);
-void builtin_echo(SEQ* seq);
-void builtin_type(SEQ* seq);
-void builtin_history(SEQ* seq);
-void builtin_tab_completion(SEQ* seq);
+
+typedef enum
+{
+    CMD_UNALIAS,
+    CMD_ALIAS,
+    CMD_CAT,
+    CMD_CD,
+    CMD_ECHO,
+    CMD_GREP,
+    CMD_HISTORY,
+    CMD_LS,
+    CMD_TAB,
+    CMD_TYPE,
+    // 其他命令...
+    CMD_COUNT     // 枚举值的数量，始终在最后
+} BuiltinCmd;
+
+extern const char* builtinCmdStr[CMD_COUNT];
+
+
+// 内建命令函数声明
+void exec_builtin_alias(SEQ* seq);
+void exec_builtin_cat(SEQ* seq);
+void exec_builtin_cd(SEQ* seq);
+void exec_builtin_echo(SEQ* seq);
+void exec_builtin_grep(SEQ* seq);
+void exec_builtin_history(SEQ* seq);
+void exec_builtin_ls(SEQ* seq);
+void exec_builtin_tab_completion(SEQ* seq);
+void exec_builtin_type(SEQ* seq);
+
+// 内置命令
+BuiltinCmd getBuiltinCmd(const char* input);
+void exec_cmd(SEQ* seq);
+void execute_outer_command(SEQ* seq);
 
 #endif // BUILTIN_H

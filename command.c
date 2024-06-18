@@ -186,7 +186,7 @@ void print_command(COMMAND* global_command)
             printf("命令 %d: %s\n", i + 1, seq->cmd_name);
             printf(" 参数: ");
             for (int j = 0; j < seq->args_count; j++) {
-                printf("%s ", seq->args[j]);
+                printf("\t%d %s\n", j, seq->args[j]);
             }
             printf("\n");
         }

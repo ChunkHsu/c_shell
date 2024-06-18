@@ -1,8 +1,8 @@
 #include "builtin.h"
 #include <stdio.h>
 
-void builtin_tab_completion(SEQ* seq)
+void exec_builtin_type(SEQ* seq)
 {
-    // 实现 tab_completion 命令
-    printf("tab_completion command executed\n");
+    // 实现 type 命令
+    printf("type command executed\n");
 }

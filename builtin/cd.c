@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void builtin_cd(SEQ* seq)
+void exec_builtin_cd(SEQ* seq)
 {
     if (seq->args_count < 2) {
         fprintf(stderr, "cd: missing argument\n");

@@ -7,7 +7,7 @@ void yyerror(char *s); // 处理错误的函数，需要在Yacc文件中定义
 
 %%
 [ \t]+              ; // 忽略空格和制表符
-[\n]               { return EOL; } // 行结束，返回EOL表示输入结束
+[\n]                { return EOL; } // 行结束，返回EOL表示输入结束
 "|"                 { return PIPE; } // 管道符号 
 
 ">>"                {return REDIRECT_OUT_APD;}
@@ -19,7 +19,9 @@ void yyerror(char *s); // 处理错误的函数，需要在Yacc文件中定义
 "$"                 {return DOLLAR; } // 环境变量符号
 "exit"              {return EXIT; } // 退出shell
 
-[^ \t\n|<>]+        { yylval.string = strdup(yytext); return WORD; } // 单词
+\"[^\"]*\"   { yylval.string = strdup(yytext); return QUOTED_WORD; }
+\'[^\']*\'   { yylval.string = strdup(yytext); return QUOTED_WORD; }
+[^ \t\n|<>=]+        { yylval.string = strdup(yytext); return WORD; } // 单词
 
 %%
 int yywrap() {

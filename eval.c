@@ -44,39 +44,34 @@ void eval_command(COMMAND* cmd)
     }
 }
 
-// 执行具体的命令
+// 执行普通命令
 void execute_simple_command(COMMAND* cmd)
 {
-    // for (int i = 0; i < cmd->seqs_count; i++) {
-    //     if (is_builtin_command(&cmd->seqs[i])) {
-    //         execute_builtin_command(&cmd->seqs[i]);
-    //     }
-    //     else {
-    //         execute_simple_command(&cmd->seqs[i]);
-    //     }
-    // }
-    printf("execute_simple_command\n");
-    print_command(global_command);
+    // 遍历每个命令序列,判断是否是内建命令
+    for (int i = 0; i < cmd->seqs_count; i++) {
+        exec_cmd(&(cmd->seqs[i]));
+    }
+    printf("eval.c execute_simple_command\n");
+    // print_command(global_command);
 }
+
 void execute_redirection_command(COMMAND* cmd)
 {
-    printf("execute_redirection_command\n");
+    printf("eval.c execute_redirection_command\n");
     print_command(global_command);
 }
+
 void execute_pipe_command(COMMAND* cmd)
 {
-    printf("execute_pipe_command\n");
+    printf("eval.c execute_pipe_command\n");
     print_command(global_command);
 
 
 }
+
 void execute_background_command(COMMAND* cmd)
 {
-    printf("execute_background_command\n");
+    printf("eval.c execute_background_command\n");
     print_command(global_command);
 
 }
-
-// 内建命令
-int is_builtin_command(SEQ* seq);
-void execute_builtin_command(SEQ* seq);

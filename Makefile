@@ -4,7 +4,8 @@ CFLAGS = -Wall -g -I. -Ibuiltin # 包含当前目录和builtin目录
 LDFLAGS = -lfl -lreadline -Wno-unused-variable -Wno-unused-function
 SRC = main.c command.c history.c input.c global.c eval.c builtin/alias.c \
 	builtin/cd.c builtin/cat.c builtin/grep.c builtin/echo.c \
-	builtin/type.c builtin/history.c builtin/tab.c
+	builtin/type.c builtin/history.c builtin/tab.c \
+	builtin/builtin.c
 
 
 all: parser

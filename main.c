@@ -13,15 +13,14 @@
 
 #define BUFFER_SIZE 1024
 
-extern int globalVariable;
-extern COMMAND* global_command;
+// extern int globalVariable;
+// extern COMMAND* global_command;
 
 extern int yyparse(void);
 extern FILE* yyin;
 extern void yyerror(char* s);
 
-
-char* get_prompt(char* buffer, size_t bufferSize);
+extern void free_alias_list(); // 释放别名列表内存 builtins/alias.c
 
 
 
@@ -29,8 +28,7 @@ char* get_prompt(char* buffer, size_t bufferSize);
 int main()
 {
     //* 初始化
-    char buffer[BUFFER_SIZE];
-    char* pwd = get_prompt(buffer, BUFFER_SIZE); // 用户当前目录
+    get_prompt(pwd, sizeof(pwd)); // 获取当前工作目录
     char* input; // 用户输入内容
     FILE* file;
 
@@ -46,7 +44,7 @@ int main()
     printf("Enter your commands:\n");
 
     while (1) {
-        char prompt[BUFFER_SIZE * 2]; // 提示符
+        char prompt[MAX_PATH_SIZE * 2]; // 提示符
 
         snprintf(prompt, sizeof(prompt), "\x1b[38;5;208m[%s@%s:%s]$\x1b[0m ", username, hostname, pwd);
         input = readline(prompt); // 获取输入
@@ -66,11 +64,11 @@ int main()
                 //* 执行命令
                 eval_command(global_command);
 
-                printf("Parsing success.\n");
+                printf("main.c 执行命令Parsing success.\n");
             }
             // 解析失败
             else {
-                printf("Parsing failed.\n");
+                printf("main.c  Parsing failed.\n");
             }
 
             // 关闭文件
@@ -82,22 +80,11 @@ int main()
         free_command(global_command); // 释放命令内存
         global_command = NULL; // 重置全局命令指针
     }
-
+    free_alias_list(); // 释放别名列表内存
     free(username);
     free(hostname);
 
     return 0;
-}
-
-// 尝试获取当前工作目录
-char* get_prompt(char* buffer, size_t bufferSize)
-{
-    char* pwd = getcwd(buffer, bufferSize);
-    if (pwd == NULL) {
-        perror("getcwd() 错误\n");
-        return NULL;
-    }
-    return pwd;
 }
 
 

@@ -29,21 +29,21 @@ void free_argvtmp(char ***argvtmp, int size);
 
 %start command_line
 
-%token<string> WORD
-%token PIPE REDIRECT_IN REDIRECT_OUT ALIAS REDIRECT_OUT_APD REDIRECT_HERE_STR REDIRECT_HERE_DOC EXIT DOLLAR BACKRUN EOL
+%token<string> WORD QUOTED_WORD 
+%token PIPE REDIRECT_IN REDIRECT_OUT ALIAS REDIRECT_OUT_APD REDIRECT_HERE_STR REDIRECT_HERE_DOC EXIT DOLLAR BACKRUN EOL 
 
 %type<seq> sequence
 %type<cmd> command
 
 %left ';' '\n'
-%right '|' '\'
+%right '|' '\\'
 
 %%
 
 command_line
     : command EOL
         {
-            printf("第 %d 个\n", globalVariable++);
+            // printf("第 %d 个\n", globalVariable++);
             global_command = $1;
             YYACCEPT;
         }
@@ -105,6 +105,10 @@ sequence
             $$ = init_seq($1);
         }
     | sequence WORD
+        {
+            $$ = add_seq_args($1, $2);
+        }
+    | sequence QUOTED_WORD
         {
             $$ = add_seq_args($1, $2);
         }
