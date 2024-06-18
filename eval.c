@@ -1,13 +1,4 @@
 #include "eval.h"
-#include "global.h"
-#include "builtin/builtin.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/wait.h>
 
 // echo 打印数据以及$(PATH)
 
@@ -51,19 +42,20 @@ void execute_simple_command(COMMAND* cmd)
     for (int i = 0; i < cmd->seqs_count; i++) {
         exec_cmd(&(cmd->seqs[i]));
     }
-    printf("eval.c execute_simple_command\n");
+    printf("eval.c 45 execute_simple_command\n");
     // print_command(global_command);
 }
 
 void execute_redirection_command(COMMAND* cmd)
 {
-    printf("eval.c execute_redirection_command\n");
+    printf("eval.c 51 execute_redirection_command\n");
+    exec_redir(cmd);
     print_command(global_command);
 }
 
 void execute_pipe_command(COMMAND* cmd)
 {
-    printf("eval.c execute_pipe_command\n");
+    printf("eval.c 58 execute_pipe_command\n");
     print_command(global_command);
 
 

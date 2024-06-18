@@ -101,7 +101,7 @@ void exec_builtin_echo(SEQ* seq)
         }
         else {
             // 创建一个新字符
-            char* com = strndup(arg, len - 1);
+            char* com = strndup(arg, len);
             // 替换字符串中的环境变量
             char* rep = replace_env_vars(com);
             if (rep) {

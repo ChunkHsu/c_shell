@@ -1,11 +1,11 @@
 # 输入make ls 编译 builtin/do_ls.cpp -> bin/ls
 CC = gcc
-CFLAGS = -Wall -g -I. -Ibuiltin # 包含当前目录和builtin目录
+CFLAGS = -Wall -g -I. -Ibuiltin -Iredir # 包含当前目录、builtin目录、redir目录
 LDFLAGS = -lfl -lreadline -Wno-unused-variable -Wno-unused-function
 SRC = main.c command.c history.c input.c global.c eval.c builtin/alias.c \
 	builtin/cd.c builtin/cat.c builtin/grep.c builtin/echo.c \
 	builtin/type.c builtin/history.c builtin/tab.c \
-	builtin/builtin.c
+	builtin/builtin.c redir/redir.c
 
 
 all: parser
