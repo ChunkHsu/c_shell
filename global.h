@@ -5,6 +5,7 @@
 
 #define MAX_PATH_SIZE 1024 * 2
 
+extern int DEBUG; // 调试模式
 extern int globalVariable;
 extern COMMAND* global_command;
 extern char* username;

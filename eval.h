@@ -5,6 +5,8 @@
 #include "global.h"
 #include "builtin/builtin.h"
 #include "redir/redir.h"
+// #include "pipe/pipe.h"
+#include "backrun/backrun.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -6,6 +6,7 @@
 #include <sys/utsname.h> // gethostname
 #include <stdio.h> // 为了使用 perror
 
+int DEBUG = 0; // 调试模式
 
 int globalVariable = 0;
 COMMAND* global_command = NULL;

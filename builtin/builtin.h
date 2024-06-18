@@ -26,7 +26,7 @@ typedef enum
     CMD_ECHO,
     CMD_GREP,
     CMD_HISTORY,
-    CMD_LS,
+    // CMD_LS,
     CMD_TAB,
     CMD_TYPE,
     // 其他命令...
