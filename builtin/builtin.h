@@ -3,6 +3,15 @@
 
 #include "../command.h"  // 修正包含路径
 #include "../eval.h"
+#include "../global.h"
+
+#include <stdio.h>
+#include <unistd.h> // 用于 chdir 函数
+#include <sys/types.h>
+#include <pwd.h>    // 用于获取用户信息
+#include <string.h>
+#include <stdlib.h>
+
 
 typedef enum
 {

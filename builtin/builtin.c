@@ -1,6 +1,4 @@
 #include "builtin.h"
-#include <string.h>
-#include <stdio.h>
 
 const char* builtinCmdStr[CMD_COUNT] = {
     "unalias",
@@ -75,10 +73,12 @@ void exec_cmd(SEQ* seq)
     case CMD_CD:
         printf("builtin.c Executing cd command...\n");
         // 实现cd命令
+        exec_builtin_cd(seq);
         break;
     case CMD_ECHO:
         printf("builtin.c Executing echo command...\n");
         // 实现echo命令
+        exec_builtin_echo(seq);
         break;
     case CMD_GREP:
         printf("builtin.c Executing grep command...\n");
