@@ -38,7 +38,7 @@ SEQ* init_seq(char* cmd_name)
  */
 SEQ* add_seq_args(SEQ* seq, char* arg)
 {
-    char** new_args = (char**)realloc(seq->args, (seq->args_count + 2) * sizeof(char*)); // +2 because we need space for new arg and the NULL terminator
+    char** new_args = (char**)realloc(seq->args, (seq->args_count + 2) * sizeof(char*)); // +2 因为需要空间来容纳新的 arg 和 NULL 终止符
     if (new_args == NULL) {
         return seq; // 保持旧的指针，不改变
     }
@@ -51,6 +51,23 @@ SEQ* add_seq_args(SEQ* seq, char* arg)
     seq->args[seq->args_count] = NULL; // 确保参数列表以NULL结尾
     return seq;
 }
+
+// 打印seq
+void print_seq(SEQ* seq)
+{
+    if (seq == NULL) {
+        printf("Sequence is NULL\n");
+        return;
+    }
+
+    printf("命令: %s\n", seq->cmd_name);
+
+    printf("参数:\n");
+    for (int i = 0; i < seq->args_count; ++i) {
+        printf("  args[%d]: %s\n", i, seq->args[i]);
+    }
+}
+
 
 /**
  *@brief 释放 SEQ 结构体的内存
@@ -182,12 +199,8 @@ void print_command(COMMAND* global_command)
     else {
         printf("总共有 %d 个命令序列\n", global_command->seqs_count);
         for (int i = 0; i < global_command->seqs_count; i++) {
-            SEQ* seq = &(global_command->seqs[i]);
-            printf("命令 %d: %s\n", i + 1, seq->cmd_name);
-            printf(" 参数: ");
-            for (int j = 0; j < seq->args_count; j++) {
-                printf("\t%d %s\n", j, seq->args[j]);
-            }
+            printf("命令 %d:\n", i + 1);
+            print_seq(&(global_command->seqs[i]));
             printf("\n");
         }
         printf("连接符: %s\n", global_command->connect ? global_command->connect : "无");

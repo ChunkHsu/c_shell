@@ -11,6 +11,5 @@ extern char* hostname;
 extern char pwd[MAX_PATH_SIZE]; // 用户当前目录
 
 void get_username_and_hostname();
-
 char* get_prompt(char* buffer, size_t bufferSize);
 #endif

@@ -4,7 +4,6 @@
 #include "../command.h"  // 修正包含路径
 #include "../eval.h"
 
-
 typedef enum
 {
     CMD_UNALIAS,
@@ -36,8 +35,11 @@ void exec_builtin_tab_completion(SEQ* seq);
 void exec_builtin_type(SEQ* seq);
 
 // 内置命令
+int is_builtin_command(const char* cmd_name);
+SEQ* change_alias_seq_args(SEQ* alias_seq);
 BuiltinCmd getBuiltinCmd(const char* input);
 void exec_cmd(SEQ* seq);
 void execute_outer_command(SEQ* seq);
+
 
 #endif // BUILTIN_H

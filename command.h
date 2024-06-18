@@ -28,6 +28,7 @@ typedef struct command COMMAND;
 
 SEQ* init_seq(char* cmd_name);
 SEQ* add_seq_args(SEQ* seq, char* arg);
+void print_seq(SEQ* seq);
 void free_seq(SEQ* seq);
 COMMAND* init_command();
 COMMAND* add_command(COMMAND* command, SEQ* seq, char* connect);

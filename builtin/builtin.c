@@ -16,6 +16,23 @@ const char* builtinCmdStr[CMD_COUNT] = {
     // 其他命令的字符串表示...
 };
 
+/**
+ *@brief 是否是内部
+ *
+ * @param cmd_name
+ * @return int
+ */
+int is_builtin_command(const char* cmd_name)
+{
+    for (int i = 0; i < CMD_COUNT; ++i) {
+        if (strcmp(builtinCmdStr[i], cmd_name) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
 /********************************************/
 /*              执行内部命令                 */
 /*                                          */
@@ -38,6 +55,9 @@ void exec_cmd(SEQ* seq)
         // 如果 seq 为空或命令名为空，则返回
         return;
     }
+    // 将别名转换为对应的原始命令
+    seq = change_alias_seq_args(seq);
+    print_seq(seq);
     // 获取命令序号
     BuiltinCmd cmd = getBuiltinCmd(seq->cmd_name);
 
