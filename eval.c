@@ -46,24 +46,23 @@ void execute_simple_command(COMMAND* cmd)
     // print_command(global_command);
 }
 
+// 执行重定向命令
 void execute_redirection_command(COMMAND* cmd)
 {
     printf("eval.c 51 execute_redirection_command\n");
     exec_redir(cmd);
-    print_command(global_command);
+    // print_command(global_command);
 }
-
+// 执行管道命令
 void execute_pipe_command(COMMAND* cmd)
 {
     printf("eval.c 58 execute_pipe_command\n");
     print_command(global_command);
-
-
 }
 
+// 执行后台命令
 void execute_background_command(COMMAND* cmd)
 {
     printf("eval.c execute_background_command\n");
     print_command(global_command);
-
 }

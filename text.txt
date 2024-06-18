@@ -1,3 +1,10 @@
 命令: alias
 参数:
+
 builtin.c Executing alias and unalias command...
+
+
+
+    dfasfasf
+asdfas
+end

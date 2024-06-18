@@ -62,22 +62,19 @@ void exec_cmd(SEQ* seq)
     switch (cmd) {
     case CMD_UNALIAS:
     case CMD_ALIAS:
-        printf("builtin.c Executing alias and unalias command...\n");
-        // 实现alias 与 unalias 命令
+        // 执行alias 与 unalias 命令
         exec_builtin_alias(seq);
         break;
     case CMD_CAT:
-        printf("builtin.c Executing cat command...\n");
-        // 实现cat命令
+        // 执行cat命令
+        exec_builtin_cat(seq);
         break;
     case CMD_CD:
-        printf("builtin.c Executing cd command...\n");
-        // 实现cd命令
+        // 执行cd命令
         exec_builtin_cd(seq);
         break;
     case CMD_ECHO:
-        printf("builtin.c Executing echo command...\n");
-        // 实现echo命令
+        // 执行echo命令
         exec_builtin_echo(seq);
         break;
     case CMD_GREP:
@@ -85,8 +82,8 @@ void exec_cmd(SEQ* seq)
         // 实现grep命令
         break;
     case CMD_HISTORY:
-        printf("builtin.c Executing history command...\n");
-        // 实现history命令
+        // 执行history命令
+        exec_builtin_history(seq);
         break;
     case CMD_LS:
         printf("builtin.c Executing ls command...\n");
@@ -110,4 +107,31 @@ void exec_cmd(SEQ* seq)
 void execute_outer_command(SEQ* seq)
 {
     printf("builtin.c execute_outer_command\n");
+    pid_t pid = fork(); // 创建子进程
+
+    if (pid == -1) {
+        // fork 失败
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+    // 子进程
+    else if (pid == 0) {
+        // 使用 execvp 执行命令，seq->args 应该以 NULL 结尾
+        if (execvp(seq->cmd_name, seq->args) == -1) {
+            // execvp 失败
+            perror("execvp");
+            exit(EXIT_FAILURE); // 如果 execvp 失败，子进程应该立刻退出
+        }
+    }
+    // 父进程
+    else {
+        int status;
+        waitpid(pid, &status, 0); // 等待子进程结束
+        if (WIFEXITED(status)) {
+            printf("Child exited with status %d\n", WEXITSTATUS(status));
+        }
+        else if (WIFSIGNALED(status)) {
+            printf("Child terminated by signal %d\n", WTERMSIG(status));
+        }
+    }
 }

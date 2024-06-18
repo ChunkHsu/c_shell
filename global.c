@@ -50,3 +50,27 @@ char* get_prompt(char* buffer, size_t bufferSize)
     }
     return buffer;
 }
+
+
+// 检查字符串是否只包含数字
+int is_number(const char* str)
+{
+    if (str == NULL) {
+        return 0; // 不是数字
+    }
+
+    // 如果字符串为空，也不视为有效的数字
+    if (*str == '\0') {
+        return 0;
+    }
+
+    // 检查字符串中的每个字符
+    while (*str) {
+        if (!isdigit((unsigned char)*str)) { // 使用 isdigit 检查每个字符
+            return 0; // 发现非数字字符
+        }
+        str++; // 移动到下一个字符
+    }
+
+    return 1; // 所有字符都是数字
+}

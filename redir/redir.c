@@ -7,9 +7,9 @@
  */
 void exec_redir(COMMAND* cmd)
 {
-    // 保存STDOUT_FILENO的副本
-    int stdout_copy = dup(STDOUT_FILENO);
-    if (stdout_copy == -1) {
+    int stdout_copy = dup(STDOUT_FILENO); // 复制标准输出文件描述符
+    int stdin_copy = dup(STDIN_FILENO); // 复制标准输入文件描述符
+    if (stdout_copy == -1 || stdin_copy == -1) {
         perror("dup");
         return;
     }
@@ -42,9 +42,12 @@ void exec_redir(COMMAND* cmd)
     // 调用对应的函数执行命令
     exec_cmd(command_seq);
 
-    // 还原STDOUT_FILENO
+    // 还原 STDOUT_FILENO 与 STDIN_FILENO
     dup2(stdout_copy, STDOUT_FILENO);
+    dup2(stdin_copy, STDIN_FILENO);
     close(stdout_copy);
+    close(stdout_copy);
+
 }
 
 //todo: << <<<
