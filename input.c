@@ -78,6 +78,13 @@ int get_input(char* buffer, int size, CommandHistory** current_history,
                         index = snprintf(buffer, size, "%s", (*current_history)->cmd->seqs[0].cmd_name);
                     }
                 }
+                else if (ch == 'C') { // 左箭头
+                    move_light_left();
+                }
+                else if (ch == 'D') { // 右箭头
+                    move_light_right();
+                }
+
             }
         }
         else if (ch == 127) { // 处理退格键
@@ -98,4 +105,20 @@ int get_input(char* buffer, int size, CommandHistory** current_history,
 
     buffer[index] = '\0';
     return index;
+}
+
+#include <stdio.h>
+
+void move_cursor_left()
+{
+    // ANSI 转义序列：光标左移一格
+    printf("\033[1D");
+    fflush(stdout); // 确保输出被立即发送到终端
+}
+
+void move_cursor_right()
+{
+    // ANSI 转义序列：光标右移一格
+    printf("\033[1C");
+    fflush(stdout); // 确保输出被立即发送到终端
 }
