@@ -128,8 +128,10 @@ void execute_outer_command(SEQ* seq)
 
     if (pid == -1) {
         // fork 失败
+        free(new_args);
         perror("fork");
         exit(EXIT_FAILURE);
+
     }
     // 子进程
     else if (pid == 0) {
@@ -139,6 +141,7 @@ void execute_outer_command(SEQ* seq)
             perror("execvp");
             exit(EXIT_FAILURE); // 如果 execvp 失败，子进程应该立刻退出
         }
+        free(new_args); // 释放 new_args
     }
     // 父进程
     else {
@@ -152,6 +155,6 @@ void execute_outer_command(SEQ* seq)
         else if (WIFSIGNALED(status)) {
             if (DEBUG)printf("Child terminated by signal %d\n", WTERMSIG(status));
         }
-        free(new_args); // 释放 new_args
+        free(new_args);
     }
 }

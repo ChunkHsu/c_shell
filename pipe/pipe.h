@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 
-#define oops(m,x) {perror(m);exit(x);}
+// #define oops(m,x) {perror(m);exit(x);}
 
 void exec_pipe(COMMAND* cmd);
 
