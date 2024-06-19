@@ -57,7 +57,8 @@
 
 （12）命令处理完毕之后，继续接受新一轮的用户输入。 
 
- 
+ ![image](https://github.com/ChunkHsu/c_shell/assets/92206375/af5a19bc-8505-4b79-a8f2-a49187af9ff4)
+
 整个流程图如上
 ### 3.2 对象模型
 > 对象模型主要分为：
