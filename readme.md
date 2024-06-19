@@ -1,15 +1,3 @@
-查看所有后台进程
-`ps -aux | grep &`
-
-后台程序的暂停
-kill -stop PID
-
-后台程序的终止：
-kill PID
-
-动态运行情况查看
-top
-
 # 《 操作系统课程设计 》实验报告本
 >  
 > 专  业：	     软件工程                   
@@ -490,3 +478,21 @@ top
 
 6.13	9-10节	实现其余内部命令，完善系统	优秀 
 
+# 使用方法
+本代码在`ubuntu20.04`编译运行，使用`gcc` 
+
+词法分析器使用 `flex`编译，需要ubuntu下载 `flex` 
+
+语法分析器使用 `bison`编译，需要ubuntu下载 `bison` 
+
+需要下载readline库 
+
+使用`Makefile`的`make`命令编译出`parser`可执行文件，运行即可 
+
+可以使用如下命令将其设置为默认启动shell 
+
+> chmod +x "/path/to/parser"
+> 
+> echo "path/to/parser" | sudo tee -a /etc/shells
+> 
+> chsh -s "path/to/parser" 
