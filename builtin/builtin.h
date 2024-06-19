@@ -65,6 +65,6 @@ void execute_outer_command(SEQ* seq);
 const char* get_alias_command(const char* alias_name);
 int check_command_in_dir(const char* dir, const char* cmd_name, char* fullpath, size_t fullpath_size);
 int is_external_command(const char* cmd_name);
-
+char* get_cmd_from_PATH_and_builtin();
 
 #endif // BUILTIN_H
