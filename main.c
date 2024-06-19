@@ -16,6 +16,7 @@
 // extern int globalVariable;
 // extern COMMAND* global_command;
 
+SEQ* main_seq = NULL; // 命令序列
 extern int yyparse(void);
 extern FILE* yyin;
 extern void yyerror(char* s);
@@ -64,7 +65,7 @@ int main()
                 //* 执行命令
                 eval_command(global_command);
 
-                printf("main.c 执行命令Parsing success.\n");
+                if (DEBUG) printf("main.c 执行命令Parsing success.\n");
             }
             // 解析失败
             else {
@@ -86,6 +87,25 @@ int main()
 
     return 0;
 }
+
+// 补全函数
+char** custom_completion(const char* text, int start, int end)
+{
+    rl_attempted_completion_over = 1; // 不使用默认的文件名补全
+    // 重新显示提示符和当前输入的内容
+    rl_on_new_line();
+    rl_redisplay();
+    // 调用内建命令补全
+    exec_builtin_tab_completion(main_seq);
+    // 返回 NULL 表示没有补全项
+    return NULL;
+}
+
+void initialize_readline()
+{
+    rl_attempted_completion_function = custom_completion; // 设置补全函数
+}
+
 
 
 // 语法解析错误处理
